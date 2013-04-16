@@ -1,5 +1,7 @@
 ﻿window.onload = function(){
-	//弹窗
+	var GLOBAL = {};
+	
+	//获取DOM节点
 	var oWindow = document.getElementById('window');
 	var openFolder = document.getElementById('openFolder');
 	var clientWidth = document.documentElement.clientWidth;
@@ -8,12 +10,12 @@
 	var oWindowLogin = document.getElementById('window-login');
 	var oLoginWindow = document.getElementById('login-window')
 	
-	
 	/*添加事件*/
 	addEvent(window,'resize',resizeWindow);
 	addEvent(openFolder,'click',popWindow);
 	addEvent(oWindowClose,'click',closeWindow);
 	addEvent(oWindowLogin,'click',closeLoginWindow);
+	
 	
 	function popWindow(){
 		oWindow.style.display = 'block';
@@ -39,6 +41,8 @@
 		var oEvent = ev || event;
 		var disX = oEvent.clientX - oWindow.offsetLeft;
 		var disY = oEvent.clientY - oWindow.offsetTop;
+		oWindow.style.opacity = '0.9';
+		oWindowTitle.style.cursor = 'move';
 		document.onmousemove = function(ev){
 			var oEvent = ev || event;
 			oWindow.style.left = oEvent.clientX - disX + 'px';
@@ -47,6 +51,8 @@
 		document.onmouseup = function(){
 			document.onmousemove = null;
 			document.onmouseup = null;
+			oWindow.style.opacity = '1.0';
+			oWindowTitle.style.cursor = '';
 		}
 		return false;
 	}
